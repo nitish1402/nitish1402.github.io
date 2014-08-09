@@ -39,7 +39,7 @@
 
       <div class="blog-header">
         <h1 class="blog-title">Nitish  Blog</h1>
-        <p class="lead blog-description">Just starting Mu blog</p>
+        <p class="lead blog-description">Just another Coders blog</p>
       </div>
 
       <div class="row">
@@ -47,62 +47,48 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <h2 class="blog-post-title">Sample blog post</h2>
-            <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+            <h2 class="blog-post-title">Computing C(M,N)%MOD</h2>
+            <p class="blog-post-meta">July 7, 2014 by <a href="#">Mark</a></p>
 
-            <p>This blog post shows a few different types of content that's supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
+            <p>This blog post is about calculating C(M,N)%MOD where MOD=100000007 and N and M are given numbers </p>
             <hr>
-            <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+            <h3> Calculating C(M, N) </h3>
+            <p> Since we have to calculate the answer modulo MOD = 1,000,000,007, the above formula have to be rewritten to</p>
             <blockquote>
-              <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <pre><code>C(M, N) = (M)! × N!<sup>-1</sup> × (M-N)!<sup>-1</sup>) mod MOD</pre></code>
             </blockquote>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <h2>Heading</h2>
-            <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <h3>Sub-heading</h3>
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-            <pre><code>Example code block</code></pre>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-            <h3>Sub-heading</h3>
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <ul>
-              <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-              <li>Donec id elit non mi porta gravida at eget metus.</li>
-              <li>Nulla vitae elit libero, a pharetra augue.</li>
-            </ul>
-            <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-            <ol>
-              <li>Vestibulum id ligula porta felis euismod semper.</li>
-              <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
-              <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
-            </ol>
-            <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
-          </div><!-- /.blog-post -->
-
-          <div class="blog-post">
-            <h2 class="blog-post-title">Another blog post</h2>
-            <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
-
-            <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+            <p>Here, x<sup>-1</sup> is the modular multiplicative inverse of x modulo MOD. Since MOD is a prime number, we can calculate it using Fermat's little theorem: x<sup>-1</sup> = x<sup>MOD-2</sup> (mod MOD). We can calculate x<sup>MOD-2</sup>in O(lg MOD) time using exponentiation by squaring. Because we will use factorials many times in this solution, we can precompute all factorials and their inverses (modulo MOD) for all integers from 0 through (let)800,000, inclusive.</p>
             <blockquote>
-              <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <pre>
+                <code>
+                  void preProcess()
+                  {
+                      fact[0]=1;
+                      ifact[0]=1;
+                      int i;
+                      for(i=1;i<MAX;i++)
+                      {
+                          fact[i]=fact[i-1]*i;
+                          fact[i]%=MOD;
+                      }
+                      ifact[2000000] = power(fact[2000000],MOD-2);
+                      for(i=2000000;i>1;i--)
+                        ifact[i-1] = ifact[i]*i%MOD;
+                  }
+                </code>
+              </pre>
             </blockquote>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-          </div><!-- /.blog-post -->
-
-          <div class="blog-post">
-            <h2 class="blog-post-title">New feature</h2>
-            <p class="blog-post-meta">December 14, 2013 by <a href="#">Chris</a></p>
-
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <ul>
-              <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-              <li>Donec id elit non mi porta gravida at eget metus.</li>
-              <li>Nulla vitae elit libero, a pharetra augue.</li>
-            </ul>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
+            <p>Therefore the function comb(X, Y) can be calculated in constant time as follows. For convenience, we also introduce function ways(N, M) .</p>
+            <blockquote>
+              <pre>
+                <code>
+                  ll comb(int a,int b)
+                  {
+                     return (((fact[a]*ifact[b])%MOD)*ifact[a-b])%MOD;
+                  }
+              </pre>
+                </code>
+            </blockquote>
           </div><!-- /.blog-post -->
 
           <ul class="pager">
@@ -115,7 +101,7 @@
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
           <div class="sidebar-module sidebar-module-inset">
             <h4>About</h4>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+            <p>Nitish Bhagat <em>Computer Science Undergraduate</em> Nothing but a dreamer, trying to make my dreams come true. I'm probably coding some angular stuff or bash scripts https://github.com/nitish1402</p>
           </div>
           <div class="sidebar-module">
             <h4>Archives</h4>
@@ -137,9 +123,9 @@
           <div class="sidebar-module">
             <h4>Elsewhere</h4>
             <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
+              <li><a href="https://github.com/nitish1402">GitHub</a></li>
+              <li><a href="https://twitter.com/princeladdak">Twitter</a></li>
+              <li><a href="https://www.facebook.com/nitish.bhagat.73">Facebook</a></li>
             </ol>
           </div>
         </div><!-- /.blog-sidebar -->
@@ -149,7 +135,7 @@
     </div><!-- /.container -->
 
     <div class="blog-footer">
-      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p>Nitish Blog  <a href="http://github.com/nitish1402">Nitish</a> by <a href="https://twitter.com/princeladdak">@princeladdak</a>.</p>
       <p>
         <a href="#">Back to top</a>
       </p>

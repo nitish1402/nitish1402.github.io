@@ -61,20 +61,20 @@
             <blockquote>
               <pre>
                 <code>
-                  void preProcess()
-                  {
-                      fact[0]=1;
-                      ifact[0]=1;
-                      int i;
-                      for(i=1;i<MAX;i++)
-                      {
-                          fact[i]=fact[i-1]*i;
-                          fact[i]%=MOD;
-                      }
-                      ifact[2000000] = power(fact[2000000],MOD-2);
-                      for(i=2000000;i>1;i--)
-                        ifact[i-1] = ifact[i]*i%MOD;
-                  }
+void preProcess()
+{
+    fact[0]=1;
+    ifact[0]=1;
+    int i;
+    for(i=1;i<MAX;i++)
+    {
+        fact[i]=fact[i-1]*i;
+        fact[i]%=MOD;
+    }
+    ifact[2000000] = power(fact[2000000],MOD-2);
+    for(i=2000000;i>1;i--)
+      ifact[i-1] = ifact[i]*i%MOD;
+}
                 </code>
               </pre>
             </blockquote>
@@ -82,10 +82,10 @@
             <blockquote>
               <pre>
                 <code>
-                  ll comb(int a,int b)
-                  {
-                     return (((fact[a]*ifact[b])%MOD)*ifact[a-b])%MOD;
-                  }
+ll comb(int a,int b)
+{
+   return (((fact[a]*ifact[b])%MOD)*ifact[a-b])%MOD;
+}                  
                 </code>
               </pre>
             </blockquote>
